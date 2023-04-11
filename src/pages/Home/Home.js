@@ -1,4 +1,3 @@
-import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
 import React from "react";
 import {withRouter} from 'react-router-dom'
@@ -50,7 +49,6 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
         <InfiniteScroll
           dataLength={this.state.pictures.length}
           next={this.increasePage}
@@ -73,7 +71,6 @@ class Home extends React.Component {
             </Masonry>
           </ResponsiveMasonry>
         </InfiniteScroll>
-      </div>
     );
   }
 }
