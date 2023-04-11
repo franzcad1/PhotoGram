@@ -1,5 +1,7 @@
+import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
 import React from "react";
+import {withRouter} from 'react-router-dom'
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
@@ -7,7 +9,6 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 class Home extends React.Component {
   state = {
-    searchValue: "",
     hasError: false,
     isLoading: false,
     page: 1,
@@ -15,9 +16,6 @@ class Home extends React.Component {
     pictures: []
   };
 
-  handleChange = (e) => {
-    this.setState({ searchValue: e.target.value });
-  };
 
   getAllPhotos = async () => {
     const baseURL = process.env.REACT_APP_BASE_URL;
@@ -51,16 +49,6 @@ class Home extends React.Component {
   };
 
   render() {
-    const images = [...this.state.pictures];
-    if (this.state.pictures) {
-      this.state.pictures.map((item) =>
-        images.push({
-          src: item.urls.small,
-          width: item.width,
-          height: item.height
-        })
-      );
-    }
     return (
       <div>
         <InfiniteScroll
@@ -90,4 +78,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);

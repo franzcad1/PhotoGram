@@ -6,11 +6,12 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Search from "./pages/Search/Search";
 import Navbar from "./components/Navbar/Navbar";
 
 export default function App() {
   return (
-    <Router>
+    <Router forceRefresh>
       <div>
         <nav>
           <ul>
@@ -18,7 +19,7 @@ export default function App() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/search">Search</Link>
             </li>
             <li>
               <Link to="/users">Users</Link>
@@ -33,12 +34,8 @@ export default function App() {
           <Route exact path="/about">
             <About />
           </Route>
-          <Route exact path="/user/:id">
-            <Users />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
+          <Route exact path="/search/:searchValue" component={Search}/>
+          <Route exact path="/" component={Home}/>
         </Switch>
       </div>
     </Router>
