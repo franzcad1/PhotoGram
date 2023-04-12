@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 import Search from "./pages/Search/Search";
 import Navbar from "./components/Navbar/Navbar";
+import ImagePreview from "./components/ImagePreview/ImagePreview";
+
 
 export default function App() {
   return (
@@ -27,13 +29,10 @@ export default function App() {
           </ul>
         </nav>
         <Navbar/>
-
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route exact path="/about">
-            <About />
-          </Route>
+          <Route exact path="/users" component={ImagePreview}/>
           <Route exact path="/search/:searchValue" component={Search}/>
           <Route exact path="/" component={Home}/>
         </Switch>
@@ -48,6 +47,3 @@ function About() {
   return <h2>About</h2>;
 }
 
-function Users() {
-  return <h2>Users</h2>;
-}

@@ -43,12 +43,23 @@ class Home extends React.Component {
     }
   }
 
+  handleClick = (photo) => {
+    this.state.pictures.map((value) => {
+      if (value.id === photo.id){
+        console.log(value.alt_description);
+      }
+      return value;
+    })
+  }
+
   increasePage = () => {
     this.setState({ page: this.state.page + 1 });
   };
 
+
   render() {
     return (
+      <div>
         <InfiniteScroll
           dataLength={this.state.pictures.length}
           next={this.increasePage}
@@ -62,6 +73,7 @@ class Home extends React.Component {
                 this.state.pictures.map((value, index) => {
                   return (
                     <img
+                    onClick={() => this.handleClick(value)}
                       key={value.id}
                       src={value.urls.small}
                       alt={value.alt_description}
@@ -71,6 +83,7 @@ class Home extends React.Component {
             </Masonry>
           </ResponsiveMasonry>
         </InfiniteScroll>
+      </div>
     );
   }
 }
