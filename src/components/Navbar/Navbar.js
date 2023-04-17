@@ -1,12 +1,55 @@
 import styled from "styled-components";
 import React from 'react'
 import { withRouter } from "react-router-dom";
+import {Camera, Star, MoonStars} from '@styled-icons/bootstrap'
 
 const Navigation = styled.div`
   display: flex;
+  justify-content: space-between;
+  margin: auto;
+  align-items: center;
+  max-width: 850px;
+`;
+
+const Icons = styled.div`
+  display: flex;
   justify-content: center;
-  margin: 20px;
-  align-content: center;
+  margin: 20px 20px 15px;
+  align-items: center;
+`;
+
+const IconContainer = styled.div`
+  align-items: center;
+  text-align: center;
+  border-radius: 15px;
+  margin: 5px;
+  width: 60px;
+  height: 70px;
+  padding: 15px;
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
+  cursor: pointer;
+`;
+
+const SearchBar = styled.input`
+  height: 40px;
+  width: 300px;
+  border: 0px;
+  font-size: 20px;
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
+`;
+
+const StyledCamera = styled(Camera)`
+  color:blue;
+  height: 40px;
+`;
+
+const StyledStar = styled(Star)`
+  color:yellow;
+  height: 40px;
+`;
+
+const StyledMoon = styled(MoonStars)`
+  height: 40px;
 `;
 
 class Navbar extends React.Component{
@@ -21,17 +64,30 @@ class Navbar extends React.Component{
   };
   render(){
     return(
+        <>
         <Navigation>
         <form onSubmit={this.handleSubmit}>
-        <input type="text" onChange={this.handleChange}  />
+        <SearchBar type="text" onChange={this.handleChange} placeholder={"Search..."}  />
         </form>
-        <input type="button" value="photos" />
-        <input type="button" value="favorites" />
-        <input type="button" value="theme" />
+        <Icons>
+        <IconContainer>
+          <StyledCamera/>
+          <p>Photos</p>
+        </IconContainer>
+        <IconContainer>
+          <StyledStar/>
+          <p>Saved</p>
+        </IconContainer>
+        <IconContainer>
+          <StyledMoon/>
+          <p>Theme</p>
+        </IconContainer>
+        </Icons>
       </Navigation>
+        <hr/>
+      </>
     )
   }
 }
-
 
 export default withRouter(Navbar);

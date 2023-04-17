@@ -69,6 +69,7 @@ class Home extends React.Component {
     return (
       <div>
         {this.state.isOpened && <ImagePreview openPhoto={this.state.openPhoto} isOpened={this.state.isOpened} handleClose={this.handleClose}/>}
+        <div>
         <InfiniteScroll
           dataLength={this.state.pictures.length}
           next={this.increasePage}
@@ -92,6 +93,7 @@ class Home extends React.Component {
             </Masonry>
           </ResponsiveMasonry>
         </InfiniteScroll>
+        </div>
       </div>
     );
   }

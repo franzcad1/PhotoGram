@@ -3,8 +3,7 @@ import Home from './pages/Home/Home'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import Search from "./pages/Search/Search";
 import Navbar from "./components/Navbar/Navbar";
@@ -15,21 +14,7 @@ export default function App() {
   return (
     <Router forceRefresh>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/search">Search</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
         <Navbar/>
-       
         <Switch>
           <Route exact path="/users" component={ImagePreview}/>
           <Route exact path="/search/:searchValue" component={Search}/>
@@ -38,11 +23,5 @@ export default function App() {
       </div>
     </Router>
   );
-}
-
-
-
-function About() {
-  return <h2>About</h2>;
 }
 
