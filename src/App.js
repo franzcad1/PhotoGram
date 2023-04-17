@@ -29,8 +29,7 @@ export default function App() {
           </ul>
         </nav>
         <Navbar/>
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+       
         <Switch>
           <Route exact path="/users" component={ImagePreview}/>
           <Route exact path="/search/:searchValue" component={Search}/>

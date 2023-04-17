@@ -41,9 +41,21 @@ const Icon = styled.img`
 `;
 
 const Image = styled.img`
-    width: 100%;
-    border-radius: 15px;
-    margin-top: 10px;
+    border-radius: 5px;
+    max-width: 852px;
+    max-height: 600px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    @media (max-width: 1600px) {
+        max-width: calc(852px - 225px);
+        max-height: calc(813px - 225px - 130px);
+    }
+    @media (max-width: 700px) {
+        max-width: calc(852px - 500px);
+        max-height: calc(813px - 520px);
+    }
 `;
 
 const PhotoInfo = styled.div`
@@ -52,6 +64,7 @@ const PhotoInfo = styled.div`
     margin: 15px 30px;
     justify-content: space-between;
     align-items: center
+    aspect-ratio: auto;
 `;
 
 
@@ -73,20 +86,20 @@ const MainContainer = styled.div`
 class ImagePreview extends Component {
   render() {
     return (
-        <MainContainer>
+        <MainContainer key={this.props.openPhoto.id}>
         <PreviewContainer>
             <Header>
                 <UserInfo>
-                    <Icon src="https://images.unsplash.com/profile-1598022349778-ee6869101631image?ixlib=rb-4.0.3&crop=faces&fit=crop&w=64&h=64"/>
-                    <Username>Mark Peter</Username>
+                    <Icon src={this.props.openPhoto.user.profile_image.medium}/>
+                    <Username>{this.props.openPhoto.user.username}</Username>
                 </UserInfo>
-                <CgClose  color="red" size={40} />
+                <CgClose onClick={this.props.handleClose} color="red" size={40} />
             </Header>
-            <Image src='https://images.unsplash.com/photo-1661956602868-6ae368943878?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyNzB8MXwxfGFsbHwxfHx8fHx8Mnx8MTY4MTMyNDg2Nw&ixlib=rb-4.0.3&q=80&w=1080'/>
+            <Image src={this.props.openPhoto.urls.regular}/>
             <PhotoInfo>
                 <Likes>  
                     <MdFavoriteBorder size={35}/>
-                    <p>700</p>
+                    <p>{this.props.openPhoto.likes}</p>
                 </Likes>
                 <MdOutlineStarBorder color="yellow" size={40}/>
             </PhotoInfo>

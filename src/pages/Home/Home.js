@@ -3,6 +3,7 @@ import React from "react";
 import {withRouter} from 'react-router-dom'
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import ImagePreview from "../../components/ImagePreview/ImagePreview";
 
 
 
@@ -12,7 +13,9 @@ class Home extends React.Component {
     isLoading: false,
     page: 1,
     hasMore: true,
-    pictures: []
+    pictures: [],
+    openPhoto: null,
+    isOpened: false
   };
 
 
@@ -46,7 +49,8 @@ class Home extends React.Component {
   handleClick = (photo) => {
     this.state.pictures.map((value) => {
       if (value.id === photo.id){
-        console.log(value.alt_description);
+        this.setState({openPhoto: value, isOpened: true})
+        console.log(value);
       }
       return value;
     })
@@ -56,10 +60,15 @@ class Home extends React.Component {
     this.setState({ page: this.state.page + 1 });
   };
 
+  handleClose = () => {
+    this.setState({isOpened: false});
+  }
+
 
   render() {
     return (
       <div>
+        {this.state.isOpened && <ImagePreview openPhoto={this.state.openPhoto} isOpened={this.state.isOpened} handleClose={this.handleClose}/>}
         <InfiniteScroll
           dataLength={this.state.pictures.length}
           next={this.increasePage}
