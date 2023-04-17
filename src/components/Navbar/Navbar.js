@@ -84,7 +84,6 @@ class Navbar extends React.Component{
         </IconContainer>
         </Icons>
       </Navigation>
-        <hr/>
       </>
     )
   }

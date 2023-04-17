@@ -15,6 +15,7 @@ const PreviewContainer = styled.div`
     transform: translate(-50%, -50%);
     z-index: 1;
     background: white;
+    max-width: 900px;
 `;
 
 const Header = styled.div`

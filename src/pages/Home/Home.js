@@ -4,8 +4,22 @@ import {withRouter} from 'react-router-dom'
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ImagePreview from "../../components/ImagePreview/ImagePreview";
+import styled from 'styled-components'
 
 
+
+const MainContainer = styled.div`
+  max-width: 1200px;
+  margin: auto;
+  filter: ${props => props.isOpened ? 'blur(4px)' : 'blur(0px)'};
+`
+;
+
+const StyledImage = styled.img`
+  border-radius 15px;
+  margin: 10px;
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
+`;
 
 class Home extends React.Component {
   state = {
@@ -67,9 +81,9 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.state.isOpened && <ImagePreview openPhoto={this.state.openPhoto} isOpened={this.state.isOpened} handleClose={this.handleClose}/>}
-        <div>
+        <MainContainer isOpened={this.state.isOpened}>
         <InfiniteScroll
           dataLength={this.state.pictures.length}
           next={this.increasePage}
@@ -82,8 +96,8 @@ class Home extends React.Component {
               {this.state.pictures &&
                 this.state.pictures.map((value, index) => {
                   return (
-                    <img
-                    onClick={() => this.handleClick(value)}
+                    <StyledImage
+                      onClick={() => this.handleClick(value)}
                       key={value.id}
                       src={value.urls.small}
                       alt={value.alt_description}
@@ -93,8 +107,8 @@ class Home extends React.Component {
             </Masonry>
           </ResponsiveMasonry>
         </InfiniteScroll>
-        </div>
-      </div>
+        </MainContainer>
+      </>
     );
   }
 }
