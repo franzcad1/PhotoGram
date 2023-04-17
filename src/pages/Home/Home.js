@@ -6,14 +6,11 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ImagePreview from "../../components/ImagePreview/ImagePreview";
 import styled from 'styled-components'
 
-
-
 const MainContainer = styled.div`
   max-width: 1200px;
   margin: auto;
   filter: ${props => props.isOpened ? 'blur(4px)' : 'blur(0px)'};
-`
-;
+`;
 
 const StyledImage = styled.img`
   border-radius 15px;
@@ -61,13 +58,15 @@ class Home extends React.Component {
   }
 
   handleClick = (photo) => {
-    this.state.pictures.map((value) => {
-      if (value.id === photo.id){
-        this.setState({openPhoto: value, isOpened: true})
-        console.log(value);
-      }
-      return value;
-    })
+    if (!this.state.isOpened){
+      this.state.pictures.map((value) => {
+        if (value.id === photo.id){
+          this.setState({openPhoto: value, isOpened: true})
+          console.log(value);
+        }
+        return value;
+      })
+    }
   }
 
   increasePage = () => {

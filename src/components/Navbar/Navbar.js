@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React from 'react'
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import {Camera, Star, MoonStars} from '@styled-icons/bootstrap'
 
 const Navigation = styled.div`
@@ -70,18 +70,20 @@ class Navbar extends React.Component{
         <SearchBar type="text" onChange={this.handleChange} placeholder={"Search..."}  />
         </form>
         <Icons>
-        <IconContainer>
-          <StyledCamera/>
-          <p>Photos</p>
-        </IconContainer>
-        <IconContainer>
-          <StyledStar/>
-          <p>Saved</p>
-        </IconContainer>
-        <IconContainer>
-          <StyledMoon/>
-          <p>Theme</p>
-        </IconContainer>
+          <Link to='/'>
+            <IconContainer>
+              <StyledCamera/>
+              <p>Photos</p>
+            </IconContainer>
+          </Link>
+          <IconContainer>
+            <StyledStar/>
+            <p>Saved</p>
+          </IconContainer>
+          <IconContainer>
+            <StyledMoon/>
+            <p>Theme</p>
+          </IconContainer>
         </Icons>
       </Navigation>
       </>

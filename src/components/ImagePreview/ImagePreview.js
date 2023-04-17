@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components';
 import {CgClose} from 'react-icons/cg'
 import {MdFavoriteBorder, MdOutlineStarBorder} from 'react-icons/md'
+import {withRouter} from 'react-router-dom'
 
 const PreviewContainer = styled.div`   
     width: 60%;
@@ -28,11 +29,12 @@ const Header = styled.div`
 
 const UserInfo = styled.div`
     display: flex;
+    cursor: pointer;
 `;
 
 const Username = styled.h1`
     font-size: 15px;
-    margin: 20px
+    margin: 20px;
 `;
 
 const Icon = styled.img`
@@ -85,12 +87,15 @@ const MainContainer = styled.div`
 
 
 class ImagePreview extends Component {
+    handleUserClick = (username) => {
+        this.props.history.push(`/users/${username}`);
+    }
   render() {
     return (
         <MainContainer key={this.props.openPhoto.id}>
         <PreviewContainer>
             <Header>
-                <UserInfo>
+                <UserInfo onClick={() => this.handleUserClick(this.props.openPhoto.user.username)}>
                     <Icon src={this.props.openPhoto.user.profile_image.medium}/>
                     <Username>{this.props.openPhoto.user.username}</Username>
                 </UserInfo>
@@ -110,5 +115,5 @@ class ImagePreview extends Component {
   }
 }
 
-export default ImagePreview;
+export default withRouter(ImagePreview);
 

@@ -2,6 +2,20 @@ import React from 'react'
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import styled from 'styled-components';
+
+const StyledImage = styled.img`
+  border-radius 15px;
+  margin: 10px;
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
+`;
+
+
+const MainContainer = styled.div`
+  max-width: 1200px;
+  margin: auto;
+  filter: ${props => props.isOpened ? 'blur(4px)' : 'blur(0px)'};
+`;
 
  class Search extends React.Component {
   state = {
@@ -45,7 +59,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
   render() {
     return (
-      <div>
+      <MainContainer>
       <h1>Search results for <span> {this.props.match.params.searchValue}</span> </h1>
       <InfiniteScroll
       dataLength={this.state.pictures.length}
@@ -59,7 +73,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
           {this.state.pictures &&
             this.state.pictures.map((value, index) => {
               return (
-                <img
+                <StyledImage
                   key={value.id}
                   src={value.urls.small}
                   alt={value.alt_description}
@@ -69,7 +83,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
         </Masonry>
       </ResponsiveMasonry>
     </InfiniteScroll>
-    </div>
+    </MainContainer>
     )
   }
 }

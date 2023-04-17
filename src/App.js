@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Search from "./pages/Search/Search";
 import Navbar from "./components/Navbar/Navbar";
+import User from './pages/User/User'
 import ImagePreview from "./components/ImagePreview/ImagePreview";
 
 
@@ -16,7 +17,7 @@ export default function App() {
       <div>
         <Navbar/>
         <Switch>
-          <Route exact path="/users" component={ImagePreview}/>
+          <Route exact path="/users/:username" component={User}/>
           <Route exact path="/search/:searchValue" component={Search}/>
           <Route exact path="/" component={Home}/>
         </Switch>
