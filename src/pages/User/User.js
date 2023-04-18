@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios'
 import styled from 'styled-components';
+import InfiniteScroll from "react-infinite-scroll-component";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 const MainContainer = styled.div`
   max-width: 1200px;
@@ -31,13 +33,21 @@ const UserURL = styled.a`
   text-decoration: none;
 `;
 
+const StyledImage = styled.img`
+  border-radius 15px;
+  margin: 10px;
+  box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
+`;
+
 
 class User extends React.Component {
   state = {
     isLoading: false,
     hasError: false,
     user: null,
-    pictures: []
+    pictures: [],
+    page: 1,
+    hasMore: true
   };
   getUser = async () => {
     const baseURL = process.env.REACT_APP_BASE_URL;
@@ -49,23 +59,52 @@ class User extends React.Component {
       );
       this.setState({
         isLoading: false,
-        user: data
+        user: data,
+        pictures: [...this.state.pictures, ...data.photos]
       });
-      console.log(data);
     } catch (err) {
       this.setState({ isLoading: false, hasError: true });
     }
   };
 
+  
+  getUserPhotos = async () => {
+    const baseURL = process.env.REACT_APP_BASE_URL;
+    const accessKey = process.env.REACT_APP_ACCESS_KEY;
+    try {
+      this.setState({ isLoading: true });
+      const { data } = await axios(
+        `${baseURL}/users/${this.props.match.params.username}/photos?page=${this.state.page}&per_page=12&client_id=${accessKey}`
+      );
+      this.setState({
+        isLoading: false,
+        pictures: [...this.state.pictures, ...data]
+      });
+    } catch (err) {
+      this.setState({ isLoading: false, hasError: true });
+    }
+  };
+
+  componentDidUpdate(prevProps, prevState){
+    if (prevState.page !== this.state.page){
+      this.getUserPhotos();
+    }
+  }
+
+  increasePage = () => {
+    this.setState({ page: this.state.page + 1 });
+  };
+
     componentDidMount(){
       this.getUser();
+      this.getUserPhotos();
     }
 
     render() {
       return (
       <MainContainer>
         {this.state.user && <>
-          <DisplayPicture src={this.state.user.profile_image.large}/>
+          <DisplayPicture  src={this.state.user.profile_image.large}/>
           <h1>{this.state.user.name}</h1>
           <p>{this.state.user.bio}</p>
           {this.state.user.instagram_username &&  <UserURL href={`https://www.instagram.com/${this.state.user.instagram_username}/`}>
@@ -85,6 +124,29 @@ class User extends React.Component {
               <p>Following</p>
             </UserInfo>
           </UserInfoContainer>
+          <InfiniteScroll
+            key={this.state.pictures.id}
+            dataLength={this.state.pictures.length}
+            next={this.increasePage}
+            hasMore={this.state.hasMore}
+          >
+            <ResponsiveMasonry
+              columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+            >
+              <Masonry>
+                {this.state.pictures &&
+                  this.state.pictures.map((value, index) => {
+                    return (
+                      <StyledImage
+                        key={value.id}
+                        src={value.urls.small}
+                        alt={value.alt_description}
+                      />
+                    );
+                  })}
+              </Masonry>
+            </ResponsiveMasonry>
+          </InfiniteScroll>
         </>}
       </MainContainer>
       );
