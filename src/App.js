@@ -9,6 +9,8 @@ import Search from "./pages/Search/Search";
 import Navbar from "./components/Navbar/Navbar";
 import User from './pages/User/User'
 import ImagePreview from "./components/ImagePreview/ImagePreview";
+import Saved from "./pages/Saved/Saved";
+import Photo from "./pages/Photo/Photo";
 
 
 export default function App() {
@@ -17,9 +19,11 @@ export default function App() {
       <div>
         <Navbar/>
         <Switch>
+          <Route exact path="/" component={Home}/>
           <Route exact path="/users/:username" component={User}/>
           <Route exact path="/search/:searchValue" component={Search}/>
-          <Route exact path="/" component={Home}/>
+          <Route exact path="/photo/:photoID" component={Photo}/>
+          <Route exact path="/saved" component={Saved}/>
         </Switch>
       </div>
     </Router>

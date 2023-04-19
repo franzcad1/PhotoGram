@@ -97,7 +97,9 @@ class User extends React.Component {
 
     componentDidMount(){
       this.getUser();
-      this.getUserPhotos();
+      if (this.state.page === 1){
+        this.getUserPhotos();
+      }
     }
 
     render() {

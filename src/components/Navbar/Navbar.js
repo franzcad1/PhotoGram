@@ -44,7 +44,7 @@ const StyledCamera = styled(Camera)`
 `;
 
 const StyledStar = styled(Star)`
-  color:yellow;
+  color: #FFCF36;
   height: 40px;
 `;
 
@@ -76,10 +76,12 @@ class Navbar extends React.Component{
               <p>Photos</p>
             </IconContainer>
           </Link>
+          <Link to='/saved'>
           <IconContainer>
             <StyledStar/>
             <p>Saved</p>
           </IconContainer>
+          </Link>
           <IconContainer>
             <StyledMoon/>
             <p>Theme</p>

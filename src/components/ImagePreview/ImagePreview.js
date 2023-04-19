@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {CgClose} from 'react-icons/cg'
 import {MdFavoriteBorder, MdOutlineStarBorder} from 'react-icons/md'
 import {withRouter} from 'react-router-dom'
-
+import {CloseOutline} from '@styled-icons/evaicons-outline';
 const PreviewContainer = styled.div`   
     width: 60%;
     margin: auto;
@@ -85,6 +85,12 @@ const MainContainer = styled.div`
     position: relative;
 `;
 
+const CloseButton = styled(CloseOutline)`
+    color: red;
+    width: 50px;
+    cursor: pointer;
+`;
+
 
 class ImagePreview extends Component {
     handleUserClick = (username) => {
@@ -99,7 +105,7 @@ class ImagePreview extends Component {
                     <Icon src={this.props.openPhoto.user.profile_image.medium}/>
                     <Username>{this.props.openPhoto.user.username}</Username>
                 </UserInfo>
-                <CgClose onClick={this.props.handleClose} color="red" size={40} />
+                <CloseButton onClick={this.props.handleClose}  />
             </Header>
             <Image src={this.props.openPhoto.urls.regular}/>
             <PhotoInfo>
@@ -107,7 +113,7 @@ class ImagePreview extends Component {
                     <MdFavoriteBorder size={35}/>
                     <p>{this.props.openPhoto.likes}</p>
                 </Likes>
-                <MdOutlineStarBorder color="yellow" size={40}/>
+                <MdOutlineStarBorder color='#FFCF36' size={40}/>
             </PhotoInfo>
         </PreviewContainer>
         </MainContainer>
