@@ -12,6 +12,7 @@ const UserInfo = styled.div`
     justify-content: center;
     gap: 15px;
     margin: 20px;
+    cursor: pointer;
 `;
 
 const StyledImage = styled.img`
@@ -72,14 +73,18 @@ class Photo extends React.Component {
       componentDidMount(){
         this.getPhoto();
       };
+
+      handleUserClick = (username) => {
+        this.props.history.push(`/users/${username}`);
+    }
     render() {
       return <>
       {this.state.photo && <> 
-        <UserInfo>
+        <UserInfo onClick={() => this.handleUserClick(this.state.photo.user.username)}>
         <DisplayPicture src={this.state.photo.user.profile_image.medium}/>
         <h3>{this.state.photo.user.name}</h3>
       </UserInfo>
-      <StyledImage src={this.state.photo.urls.raw}/>
+      <StyledImage src={this.state.photo.urls.full}/>
       <PhotoInfo>
         <LikesInfo>
             <HeartIcon/>

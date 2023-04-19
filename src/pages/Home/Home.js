@@ -16,6 +16,7 @@ const StyledImage = styled.img`
   border-radius 15px;
   margin: 10px;
   box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
+  cursor: pointer;
 `;
 
 class Home extends React.Component {

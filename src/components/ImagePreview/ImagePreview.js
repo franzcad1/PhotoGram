@@ -59,6 +59,7 @@ const Image = styled.img`
         max-width: calc(852px - 500px);
         max-height: calc(813px - 520px);
     }
+    cursor: pointer;
 `;
 
 const PhotoInfo = styled.div`

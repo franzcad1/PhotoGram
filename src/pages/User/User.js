@@ -37,6 +37,7 @@ const StyledImage = styled.img`
   border-radius 15px;
   margin: 10px;
   box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
+  cursor: pointer;
 `;
 
 
@@ -95,13 +96,16 @@ class User extends React.Component {
     this.setState({ page: this.state.page + 1 });
   };
 
-    componentDidMount(){
-      this.getUser();
-      if (this.state.page === 1){
-        this.getUserPhotos();
-      }
+  componentDidMount(){
+    this.getUser();
+    if (this.state.page === 1){
+      this.getUserPhotos();
     }
+  }
 
+  handlePhotoClick = (photo) => {
+    this.props.history.push(`/photo/${photo.id}`);
+  }
     render() {
       return (
       <MainContainer>
@@ -139,7 +143,7 @@ class User extends React.Component {
                 {this.state.pictures &&
                   this.state.pictures.map((value, index) => {
                     return (
-                      <StyledImage
+                      <StyledImage onClick={() => this.handlePhotoClick(value)}
                         key={value.id}
                         src={value.urls.small}
                         alt={value.alt_description}
