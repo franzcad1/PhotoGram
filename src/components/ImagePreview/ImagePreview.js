@@ -96,26 +96,30 @@ class ImagePreview extends Component {
     handleUserClick = (username) => {
         this.props.history.push(`/users/${username}`);
     }
+
+    handlePhotoClick = (photo) => {
+        this.props.history.push(`/photo/${photo.id}`);
+    }
   render() {
     return (
         <MainContainer key={this.props.openPhoto.id}>
-        <PreviewContainer>
-            <Header>
-                <UserInfo onClick={() => this.handleUserClick(this.props.openPhoto.user.username)}>
-                    <Icon src={this.props.openPhoto.user.profile_image.medium}/>
-                    <Username>{this.props.openPhoto.user.username}</Username>
-                </UserInfo>
-                <CloseButton onClick={this.props.handleClose}  />
-            </Header>
-            <Image src={this.props.openPhoto.urls.regular}/>
-            <PhotoInfo>
-                <Likes>  
-                    <MdFavoriteBorder size={35}/>
-                    <p>{this.props.openPhoto.likes}</p>
-                </Likes>
-                <MdOutlineStarBorder color='#FFCF36' size={40}/>
-            </PhotoInfo>
-        </PreviewContainer>
+            <PreviewContainer>
+                <Header>
+                    <UserInfo onClick={() => this.handleUserClick(this.props.openPhoto.user.username)}>
+                        <Icon src={this.props.openPhoto.user.profile_image.medium}/>
+                        <Username>{this.props.openPhoto.user.username}</Username>
+                    </UserInfo>
+                    <CloseButton onClick={this.props.handleClose}  />
+                </Header>
+                <Image onClick={()=> this.handlePhotoClick(this.props.openPhoto)}src={this.props.openPhoto.urls.regular}/>
+                <PhotoInfo>
+                    <Likes>  
+                        <MdFavoriteBorder size={35}/>
+                        <p>{this.props.openPhoto.likes}</p>
+                    </Likes>
+                    <MdOutlineStarBorder color='#FFCF36' size={40}/>
+                </PhotoInfo>
+            </PreviewContainer>
         </MainContainer>
     )
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import {HeartFill, Star} from '@styled-icons/bootstrap';
 
@@ -45,20 +46,48 @@ const LikesInfo = styled.div`
 
 
 class Photo extends React.Component {
+    state = {
+        isLoading: false,
+        hasError: false,
+        photo: null
+    }
+    getPhoto = async () => {
+        const baseURL = process.env.REACT_APP_BASE_URL;
+        const accessKey = process.env.REACT_APP_ACCESS_KEY;
+        try {
+          this.setState({ isLoading: true });
+          const { data } = await axios(
+            `${baseURL}/photos/${this.props.match.params.photoID}?client_id=${accessKey}`
+          );
+          this.setState({
+            isLoading: false,
+            photo: data
+          });
+          console.log(data)
+        } catch (err) {
+          this.setState({ isLoading: false, hasError: true });
+        }
+      };
+
+      componentDidMount(){
+        this.getPhoto();
+      };
     render() {
       return <>
-      <UserInfo>
-        <DisplayPicture src ='https://images.unsplash.com/profile-1615576234943-19e4d4495feeimage?ixlib=rb-4.0.3&crop=faces&fit=crop&w=64&h=64'/>
-        <h3>Franz Cadiente</h3>
+      {this.state.photo && <> 
+        <UserInfo>
+        <DisplayPicture src={this.state.photo.user.profile_image.medium}/>
+        <h3>{this.state.photo.user.name}</h3>
       </UserInfo>
-      <StyledImage src='https://images.unsplash.com/photo-1681896616404-6568bf13b022?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyNzB8MHwxfGFsbHx8fHx8fHx8fDE2ODE5MzMzNDQ&ixlib=rb-4.0.3&q=80&w=1080'/>
+      <StyledImage src={this.state.photo.urls.raw}/>
       <PhotoInfo>
         <LikesInfo>
             <HeartIcon/>
-            <p>23</p>
+            <p>{this.state.photo.likes}</p>
         </LikesInfo>
         <StarIcon/>
       </PhotoInfo>
+      </>}
       </>;
     }
   }
