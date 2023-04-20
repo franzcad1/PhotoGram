@@ -40,6 +40,11 @@ const StyledImage = styled.img`
   cursor: pointer;
 `;
 
+const BioContainer = styled.div`
+  max-width: 500px;
+  margin: 0 auto;
+`;
+
 
 class User extends React.Component {
   state = {
@@ -112,7 +117,9 @@ class User extends React.Component {
         {this.state.user && <>
           <DisplayPicture  src={this.state.user.profile_image.large}/>
           <h1>{this.state.user.name}</h1>
-          <p>{this.state.user.bio}</p>
+          <BioContainer>
+            <p>{this.state.user.bio}</p>
+          </BioContainer>
           {this.state.user.instagram_username &&  <UserURL href={`https://www.instagram.com/${this.state.user.instagram_username}/`}>
             @{this.state.user.instagram_username}
             </UserURL> }
