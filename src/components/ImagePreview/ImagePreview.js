@@ -15,7 +15,7 @@ const PreviewContainer = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    background: white;
+    background: ${props => props.theme.background};
     max-width: 900px;
 `;
 
@@ -35,6 +35,7 @@ const UserInfo = styled.div`
 const Username = styled.h1`
     font-size: 15px;
     margin: 20px;
+    color: ${props => props.theme.main};
 `;
 
 const Icon = styled.img`

@@ -19,6 +19,7 @@ const UserInfo = styled.div`
   margin: 20px 20px;
   justify-content: center;
   line-height:10px;
+  color: ${props => props.theme.secondary};
 `;
 
 const DisplayPicture = styled.img`
@@ -43,6 +44,11 @@ const StyledImage = styled.img`
 const BioContainer = styled.div`
   max-width: 500px;
   margin: 0 auto;
+  color: ${props => props.theme.secondary};
+`;
+
+const Heading = styled.h1`
+  color: ${props => props.theme.main};
 `;
 
 
@@ -116,7 +122,7 @@ class User extends React.Component {
       <MainContainer>
         {this.state.user && <>
           <DisplayPicture  src={this.state.user.profile_image.large}/>
-          <h1>{this.state.user.name}</h1>
+          <Heading>{this.state.user.name}</Heading>
           <BioContainer>
             <p>{this.state.user.bio}</p>
           </BioContainer>

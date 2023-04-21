@@ -9,6 +9,7 @@ const Navigation = styled.div`
   margin: auto;
   align-items: center;
   max-width: 850px;
+  background-color: ${props => props.theme.background};
 `;
 
 const Icons = styled.div`
@@ -21,6 +22,7 @@ const Icons = styled.div`
 const IconContainer = styled.div`
   align-items: center;
   text-align: center;
+  color: ${props => props.theme.main};
   border-radius: 15px;
   margin: 5px;
   width: 60px;
@@ -31,11 +33,12 @@ const IconContainer = styled.div`
 `;
 
 const SearchBar = styled.input`
-  height: 40px;
-  width: 300px;
+  height: 50px;
+  width: 400px;
   border: 0px;
   font-size: 20px;
   box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
+  background-color:  ${props => props.theme.inputBackground};
 `;
 
 const StyledCamera = styled(Camera)`
@@ -50,6 +53,10 @@ const StyledStar = styled(Star)`
 
 const StyledMoon = styled(MoonStars)`
   height: 40px;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
 
 class Navbar extends React.Component{
@@ -70,20 +77,20 @@ class Navbar extends React.Component{
         <SearchBar type="text" onChange={this.handleChange} placeholder={"Search..."}  />
         </form>
         <Icons>
-          <Link to='/'>
+          <StyledLink to='/'>
             <IconContainer>
               <StyledCamera/>
               <p>Photos</p>
             </IconContainer>
-          </Link>
-          <Link to='/saved'>
+          </StyledLink>
+          <StyledLink to='/saved'>
           <IconContainer>
             <StyledStar/>
             <p>Saved</p>
           </IconContainer>
-          </Link>
+          </StyledLink>
           <IconContainer>
-            <StyledMoon/>
+            <StyledMoon onClick={this.props.handleThemeChange}/>
             <p>Theme</p>
           </IconContainer>
         </Icons>

@@ -13,6 +13,7 @@ const UserInfo = styled.div`
     gap: 15px;
     margin: 20px;
     cursor: pointer;
+    color: ${props => props.theme.main};
 `;
 
 const StyledImage = styled.img`
@@ -43,6 +44,7 @@ const LikesInfo = styled.div`
     display: flex;
     gap: 10px;
     font-size: 24px;
+    color: ${props => props.theme.main};
 `;
 
 

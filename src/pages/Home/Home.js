@@ -63,7 +63,6 @@ class Home extends React.Component {
       this.state.pictures.map((value) => {
         if (value.id === photo.id){
           this.setState({openPhoto: value, isOpened: true})
-          console.log(value);
         }
         return value;
       })

@@ -10,6 +10,9 @@ const StyledImage = styled.img`
   box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
 `;
 
+const Heading = styled.h1`
+  color: ${props => props.theme.main};
+`;
 
 const MainContainer = styled.div`
   max-width: 1200px;
@@ -60,29 +63,29 @@ const MainContainer = styled.div`
   render() {
     return (
       <MainContainer>
-      <h1>Search results for <span> {this.props.match.params.searchValue}</span> </h1>
-      <InfiniteScroll
-      dataLength={this.state.pictures.length}
-      next={this.increasePage}
-      hasMore={this.state.hasMore}
-    >
-      <ResponsiveMasonry
-        columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+        <Heading>Search results for <span> {this.props.match.params.searchValue}</span> </Heading>
+        <InfiniteScroll
+        dataLength={this.state.pictures.length}
+        next={this.increasePage}
+        hasMore={this.state.hasMore}
       >
-        <Masonry>
-          {this.state.pictures &&
-            this.state.pictures.map((value, index) => {
-              return (
-                <StyledImage
-                  key={value.id}
-                  src={value.urls.small}
-                  alt={value.alt_description}
-                />
-              );
-            })}
-        </Masonry>
-      </ResponsiveMasonry>
-    </InfiniteScroll>
+        <ResponsiveMasonry
+          columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+        >
+          <Masonry>
+            {this.state.pictures &&
+              this.state.pictures.map((value, index) => {
+                return (
+                  <StyledImage
+                    key={value.id}
+                    src={value.urls.small}
+                    alt={value.alt_description}
+                  />
+                );
+              })}
+          </Masonry>
+        </ResponsiveMasonry>
+      </InfiniteScroll>
     </MainContainer>
     )
   }
