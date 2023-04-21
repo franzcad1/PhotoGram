@@ -11,7 +11,7 @@ import Navbar from "./components/Navbar/Navbar";
 import User from './pages/User/User'
 import Saved from "./pages/Saved/Saved";
 import Photo from "./pages/Photo/Photo";
-import { BlackTie } from "styled-icons/fa-brands";
+
 
 const GlobalStyle = createGlobalStyle`
   body, input {
@@ -40,12 +40,13 @@ const MainContainer = styled.div`
 
 export default class App extends React.Component {
   state = {
-    isLightTheme: true,
+    isDarkTheme: !!JSON.parse(localStorage.getItem('theme')),
     previewOpened: false
   }
 
   handleThemeChange = () => {
-    this.setState({isLightTheme: !this.state.isLightTheme})
+    this.setState({isDarkTheme: !this.state.isDarkTheme})
+    localStorage.setItem('theme', !this.state.isDarkTheme)
   };
 
   handleBlur = () => {
@@ -61,7 +62,7 @@ export default class App extends React.Component {
   
   render() {
     return (
-      <ThemeProvider theme={this.state.isLightTheme ? lightTheme : darkTheme }>
+      <ThemeProvider theme={this.state.isDarkTheme ? darkTheme : lightTheme }>
         <Router forceRefresh>
           <MainContainer>
             <GlobalStyle/>
