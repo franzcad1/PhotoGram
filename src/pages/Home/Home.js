@@ -49,11 +49,14 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    this.getAllPhotos();
+    if(this.state.page === 1)
+    {
+      this.getAllPhotos();
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.page !== this.state.page) {
+    if ((this.state.page > 1) && prevState.page !== this.state.page) {
       this.getAllPhotos();
     }
   }
@@ -80,8 +83,8 @@ class Home extends React.Component {
 
   render() {
     return (
-      <>
-        {this.state.isOpened && <ImagePreview openPhoto={this.state.openPhoto} isOpened={this.state.isOpened} handleClose={this.handleClose}/>}
+      <div>
+        {this.state.isOpened && <ImagePreview openPhoto={this.state.openPhoto} isOpened={this.state.isOpened} handleClose={this.handleClose} savePhoto={this.props.savePhoto}/>}
         <MainContainer isOpened={this.state.isOpened}>
         <InfiniteScroll
           dataLength={this.state.pictures.length}
@@ -107,7 +110,7 @@ class Home extends React.Component {
           </ResponsiveMasonry>
         </InfiniteScroll>
         </MainContainer>
-      </>
+      </div>
     );
   }
 }

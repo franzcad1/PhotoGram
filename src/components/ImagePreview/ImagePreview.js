@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
-import {CgClose} from 'react-icons/cg'
-import {MdFavoriteBorder, MdOutlineStarBorder} from 'react-icons/md'
 import {withRouter} from 'react-router-dom'
 import {CloseOutline} from '@styled-icons/evaicons-outline';
+import {Star, HeartFill} from '@styled-icons/bootstrap'
 const PreviewContainer = styled.div`   
-    width: 60%;
+    width: 100vw;
     margin: auto;
     padding: 15px;
     border-radius: 10px;
-    position: absolute;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -85,12 +83,25 @@ const Likes = styled.div`
 
 const MainContainer = styled.div`
     position: relative;
+    max-width: 1200px;
+    margin: auto;
 `;
 
 const CloseButton = styled(CloseOutline)`
     color: red;
     width: 50px;
     cursor: pointer;
+`;
+
+const StyledStar = styled(Star)`
+  color: #FFCF36;
+  height: 40px;
+  cursor: pointer;
+`;
+
+const HeartIcon = styled(HeartFill)`
+    color: red;
+    width: 40px;
 `;
 
 
@@ -104,7 +115,7 @@ class ImagePreview extends Component {
     }
   render() {
     return (
-        <MainContainer key={this.props.openPhoto.id}>
+        <MainContainer>
             <PreviewContainer>
                 <Header>
                     <UserInfo onClick={() => this.handleUserClick(this.props.openPhoto.user.username)}>
@@ -113,13 +124,13 @@ class ImagePreview extends Component {
                     </UserInfo>
                     <CloseButton onClick={this.props.handleClose}  />
                 </Header>
-                <Image onClick={()=> this.handlePhotoClick(this.props.openPhoto)}src={this.props.openPhoto.urls.regular}/>
+                <Image onClick={()=> this.handlePhotoClick(this.props.openPhoto)} src={this.props.openPhoto.urls.regular}/>
                 <PhotoInfo>
                     <Likes>  
-                        <MdFavoriteBorder size={35}/>
+                        <HeartIcon/>
                         <p>{this.props.openPhoto.likes}</p>
                     </Likes>
-                    <MdOutlineStarBorder color='#FFCF36' size={40}/>
+                    <StyledStar onClick={() => this.props.savePhoto(this.props.openPhoto)}/>
                 </PhotoInfo>
             </PreviewContainer>
         </MainContainer>

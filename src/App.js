@@ -34,14 +34,13 @@ const darkTheme = {
 };
 
 const MainContainer = styled.div`
-  filter: ${props => props.previewOpened ? 'blur(4px)' : 'blur(0px)'};
   background-color: ${props => props.theme.background};
 `;
 
 export default class App extends React.Component {
   state = {
     isDarkTheme: !!JSON.parse(localStorage.getItem('theme')),
-    previewOpened: false
+    savedPhotos: JSON.parse(localStorage.getItem('savedPhotos') || '[]')
   }
 
   handleThemeChange = () => {
@@ -49,17 +48,22 @@ export default class App extends React.Component {
     localStorage.setItem('theme', !this.state.isDarkTheme)
   };
 
-  handleBlur = () => {
-    this.setState({previewOpened: !this.state.previewOpened})
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.previewOpened !== this.state.previewOpened)
-    {
-      
+  savePhoto = (photo) => {
+      const photoList = [...this.state.savedPhotos];
+      if (!this.state.savedPhotos.find(item => item.id === photo.id)){
+        photoList.push(photo);
+        console.log('image saved')
+      }
+      this.setState({savedPhotos: photoList})
+      localStorage.setItem('savedPhotos', JSON.stringify(photoList));
+    };
+  
+  
+  componentDidUpdate(prevProps, prevState){
+    if (prevState.savedPhotos !== this.state.savedPhotos){
+      console.log(this.state.savedPhotos);
     }
   }
-  
   render() {
     return (
       <ThemeProvider theme={this.state.isDarkTheme ? darkTheme : lightTheme }>
@@ -68,11 +72,11 @@ export default class App extends React.Component {
             <GlobalStyle/>
             <Navbar handleThemeChange={this.handleThemeChange}/>
             <Switch>
-              <Route exact path="/" component={(props) => <Home {...props} handleBlur={this.handleBlur} previewOpened={this.state.previewOpened}/>}/>
+              <Route exact path="/" component={(props) => <Home {...props} savePhoto={this.savePhoto}/>}/>
               <Route exact path="/users/:username" component={User}/>
               <Route exact path="/search/:searchValue" component={Search}/>
               <Route exact path="/photo/:photoID" component={Photo}/>
-              <Route exact path="/saved" component={Saved}/>
+              <Route exact path="/saved" component={(props) => <Saved {...props} savedPhotos={this.state.savedPhotos}/>}/>
             </Switch>
           </MainContainer>
         </Router>
