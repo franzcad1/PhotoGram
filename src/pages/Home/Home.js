@@ -27,7 +27,7 @@ class Home extends React.Component {
     hasMore: true,
     pictures: [],
     openPhoto: null,
-    isOpened: false
+    isOpened: false,
   };
 
 
@@ -84,7 +84,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        {this.state.isOpened && <ImagePreview openPhoto={this.state.openPhoto} isOpened={this.state.isOpened} handleClose={this.handleClose} savePhoto={this.props.savePhoto}/>}
+        {this.state.isOpened && <ImagePreview openPhoto={this.state.openPhoto} isOpened={this.state.isOpened} handleClose={this.handleClose} savedPhotos={this.props.savedPhotos}/>}
         <MainContainer isOpened={this.state.isOpened}>
         <InfiniteScroll
           dataLength={this.state.pictures.length}

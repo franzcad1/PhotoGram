@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components';
 import {withRouter} from 'react-router-dom'
 import {CloseOutline} from '@styled-icons/evaicons-outline';
-import {Star, HeartFill} from '@styled-icons/bootstrap'
+import {Star, HeartFill, StarFill} from '@styled-icons/bootstrap'
 const PreviewContainer = styled.div`   
     width: 100vw;
     margin: auto;
@@ -104,8 +104,16 @@ const HeartIcon = styled(HeartFill)`
     width: 40px;
 `;
 
+const StarFillIcon = styled(StarFill)`
+    color: #FFCF36;
+    width: 40px;
+`;
+
 
 class ImagePreview extends Component {
+    state = {
+        isSaved: false
+    }
     handleUserClick = (username) => {
         this.props.history.push(`/users/${username}`);
     }
@@ -113,6 +121,22 @@ class ImagePreview extends Component {
     handlePhotoClick = (photo) => {
         this.props.history.push(`/photo/${photo.id}`);
     }
+
+    checkIfSaved = () => {
+        if (this.props.openPhoto){
+          const isSaved = this.props.savedPhotos.find((value) => value.id === this.props.openPhoto.id);
+          if (isSaved){
+            this.setState({isSaved: true});
+          } else{
+            this.setState({isSaved: false});
+          }
+        }
+      }
+
+    componentDidMount(){
+        this.checkIfSaved();
+    }
+    
   render() {
     return (
         <MainContainer>
@@ -130,7 +154,7 @@ class ImagePreview extends Component {
                         <HeartIcon/>
                         <p>{this.props.openPhoto.likes}</p>
                     </Likes>
-                    <StyledStar onClick={() => this.props.savePhoto(this.props.openPhoto)}/>
+                    {this.state.isSaved ? <StarFillIcon/> :<StyledStar onClick={() => this.props.savePhoto(this.props.openPhoto)}/>}
                 </PhotoInfo>
             </PreviewContainer>
         </MainContainer>

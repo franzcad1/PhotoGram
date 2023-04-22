@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import {withRouter} from 'react-router-dom'
 
 const MainContainer = styled.div`
   max-width: 1200px;
@@ -16,6 +17,9 @@ const StyledImage = styled.img`
   cursor: pointer;
 `;
 class Saved extends React.Component {
+  handlePhotoClick = (photo) => {
+    this.props.history.push(`/photo/${photo.id}`);
+  }
     render() {
       return (
       <MainContainer>
@@ -27,6 +31,7 @@ class Saved extends React.Component {
                   this.props.savedPhotos.map((value, index) => {
                     return (
                       <StyledImage
+                        onClick={() => this.handlePhotoClick(value)}
                         key={value.id}
                         src={value.urls.small}
                         alt={value.alt_description}
@@ -39,4 +44,4 @@ class Saved extends React.Component {
     )}
   }
 
-  export default Saved;
+  export default withRouter(Saved);

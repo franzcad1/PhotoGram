@@ -1,10 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import {HeartFill, Star} from '@styled-icons/bootstrap';
+import {HeartFill, Star, StarFill} from '@styled-icons/bootstrap';
 
 const DisplayPicture = styled.img`
   border-radius: 15px;
+`;
+
+const MainContainer = styled.div`
+  max-width: 1200px;
+  margin: auto;
+  background-color: ${props => props.theme.background};
+  height: 100vh
 `;
 
 const UserInfo = styled.div`
@@ -40,6 +47,11 @@ const StarIcon = styled(Star)`
     width: 40px;
 `;
 
+const StarFillIcon = styled(StarFill)`
+    color: #FFCF36;
+    width: 40px;
+`;
+
 const LikesInfo = styled.div`
     display: flex;
     gap: 10px;
@@ -52,7 +64,8 @@ class Photo extends React.Component {
     state = {
         isLoading: false,
         hasError: false,
-        photo: null
+        photo: null,
+        isSaved: false
     }
     getPhoto = async () => {
         const baseURL = process.env.REACT_APP_BASE_URL;
@@ -66,21 +79,41 @@ class Photo extends React.Component {
             isLoading: false,
             photo: data
           });
-          console.log(data)
         } catch (err) {
           this.setState({ isLoading: false, hasError: true });
         }
       };
 
-      componentDidMount(){
+    componentDidMount(){
         this.getPhoto();
-      };
+    };
 
-      handleUserClick = (username) => {
+    componentDidUpdate(prevProps, prevState){
+      if(prevState.photo !== this.state.photo){
+        this.checkIfSaved();
+      }
+      if(prevState.isSaved !== this.state.isSaved){
+        console.log(this.state.isSaved)
+      }
+    }
+
+    handleUserClick = (username) => {
         this.props.history.push(`/users/${username}`);
     }
+
+    checkIfSaved = () => {
+      if (this.state.photo){
+        const isSaved = this.props.savedPhotos.find((value) => value.id === this.state.photo.id);
+        if (isSaved){
+          this.setState({isSaved: true});
+        } else{
+          this.setState({isSaved: false});
+        }
+      }
+    }
+
     render() {
-      return <>
+      return <MainContainer>
       {this.state.photo && <> 
         <UserInfo onClick={() => this.handleUserClick(this.state.photo.user.username)}>
         <DisplayPicture src={this.state.photo.user.profile_image.medium}/>
@@ -92,10 +125,10 @@ class Photo extends React.Component {
             <HeartIcon/>
             <p>{this.state.photo.likes}</p>
         </LikesInfo>
-        <StarIcon/>
+        {this.state.isSaved ? <StarFillIcon/> : <StarIcon/>}
       </PhotoInfo>
       </>}
-      </>;
+      </MainContainer>;
     }
   }
 

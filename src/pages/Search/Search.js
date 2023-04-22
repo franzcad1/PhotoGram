@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import styled from 'styled-components';
 
+
 const StyledImage = styled.img`
   border-radius 15px;
   margin: 10px;
@@ -28,6 +29,10 @@ const MainContainer = styled.div`
     hasMore: true,
     page: 1
   };
+
+  handlePhotoClick = (photo) => {
+    this.props.history.push(`/photo/${photo.id}`);
+  }
   searchPhoto = async () => {
     const baseURL = process.env.REACT_APP_BASE_URL;
     const accessKey = process.env.REACT_APP_ACCESS_KEY;
@@ -77,6 +82,7 @@ const MainContainer = styled.div`
               this.state.pictures.map((value, index) => {
                 return (
                   <StyledImage
+                    onClick={() => this.handlePhotoClick(value)}
                     key={value.id}
                     src={value.urls.small}
                     alt={value.alt_description}
