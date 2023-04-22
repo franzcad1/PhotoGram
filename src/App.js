@@ -57,6 +57,12 @@ export default class App extends React.Component {
       this.setState({savedPhotos: photoList})
       localStorage.setItem('savedPhotos', JSON.stringify(photoList));
     };
+
+  unsavePhoto = (photo) => {
+    const photoList = this.state.savedPhotos.filter(item => {return item.id !== photo.id});
+    this.setState({savedPhotos: photoList})
+    localStorage.setItem('savedPhotos', JSON.stringify(photoList));
+  }
   
   
   componentDidUpdate(prevProps, prevState){
@@ -72,10 +78,10 @@ export default class App extends React.Component {
             <GlobalStyle/>
             <Navbar handleThemeChange={this.handleThemeChange}/>
             <Switch>
-              <Route exact path="/" component={(props) => <Home {...props} savePhoto={this.savePhoto} savedPhotos={this.state.savedPhotos}/>}/>
+              <Route exact path="/" component={(props) => <Home {...props} savePhoto={this.savePhoto} savedPhotos={this.state.savedPhotos} unsavePhoto={this.unsavePhoto}/>}/>
               <Route exact path="/users/:username" component={User}/>
               <Route exact path="/search/:searchValue" component={Search}/>
-              <Route exact path="/photo/:photoID" component={(props) => <Photo {...props} savedPhotos={this.state.savedPhotos} />}/>
+              <Route exact path="/photo/:photoID" component={(props) => <Photo {...props} savePhoto={this.savePhoto} savedPhotos={this.state.savedPhotos} unsavePhoto={this.unsavePhoto}/>}/>
               <Route exact path="/saved" component={(props) => <Saved {...props} savedPhotos={this.state.savedPhotos}/>}/>
             </Switch>
           </MainContainer>

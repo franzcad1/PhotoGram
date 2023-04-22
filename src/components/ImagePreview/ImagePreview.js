@@ -107,6 +107,7 @@ const HeartIcon = styled(HeartFill)`
 const StarFillIcon = styled(StarFill)`
     color: #FFCF36;
     width: 40px;
+    cursor: pointer;
 `;
 
 
@@ -154,7 +155,7 @@ class ImagePreview extends Component {
                         <HeartIcon/>
                         <p>{this.props.openPhoto.likes}</p>
                     </Likes>
-                    {this.state.isSaved ? <StarFillIcon/> :<StyledStar onClick={() => this.props.savePhoto(this.props.openPhoto)}/>}
+                    {this.state.isSaved ? <StarFillIcon onClick={() => this.props.unsavePhoto(this.props.openPhoto)}/> :<StyledStar onClick={() => this.props.savePhoto(this.props.openPhoto)}/>}
                 </PhotoInfo>
             </PreviewContainer>
         </MainContainer>

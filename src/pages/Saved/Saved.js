@@ -16,6 +16,11 @@ const StyledImage = styled.img`
   box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
   cursor: pointer;
 `;
+
+const Heading = styled.h1`
+  color: ${props => props.theme.main};
+  margin: 20px;
+`;
 class Saved extends React.Component {
   handlePhotoClick = (photo) => {
     this.props.history.push(`/photo/${photo.id}`);
@@ -23,6 +28,7 @@ class Saved extends React.Component {
     render() {
       return (
       <MainContainer>
+        <Heading>Saved Photos</Heading>
         <ResponsiveMasonry
               columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
             >

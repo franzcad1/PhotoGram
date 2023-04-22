@@ -84,7 +84,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        {this.state.isOpened && <ImagePreview openPhoto={this.state.openPhoto} isOpened={this.state.isOpened} handleClose={this.handleClose} savedPhotos={this.props.savedPhotos}/>}
+        {this.state.isOpened && <ImagePreview openPhoto={this.state.openPhoto} isOpened={this.state.isOpened} handleClose={this.handleClose} savePhoto={this.props.savePhoto} savedPhotos={this.props.savedPhotos} unsavePhoto={this.props.unsavePhoto}/>}
         <MainContainer isOpened={this.state.isOpened}>
         <InfiniteScroll
           dataLength={this.state.pictures.length}

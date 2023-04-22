@@ -45,11 +45,13 @@ const HeartIcon = styled(HeartFill)`
 const StarIcon = styled(Star)`
     color: #FFCF36;
     width: 40px;
+    cursor: pointer;
 `;
 
 const StarFillIcon = styled(StarFill)`
     color: #FFCF36;
     width: 40px;
+    cursor: pointer;
 `;
 
 const LikesInfo = styled.div`
@@ -125,7 +127,7 @@ class Photo extends React.Component {
             <HeartIcon/>
             <p>{this.state.photo.likes}</p>
         </LikesInfo>
-        {this.state.isSaved ? <StarFillIcon/> : <StarIcon/>}
+        {this.state.isSaved ? <StarFillIcon onClick={() => this.props.unsavePhoto(this.state.photo)}/> : <StarIcon onClick={() => this.props.savePhoto(this.state.photo)}/>}
       </PhotoInfo>
       </>}
       </MainContainer>;
