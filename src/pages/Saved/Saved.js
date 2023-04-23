@@ -1,26 +1,7 @@
 import React from 'react';
-import styled from 'styled-components'
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import {withRouter} from 'react-router-dom'
-
-const MainContainer = styled.div`
-  max-width: 1200px;
-  margin: auto;
-  background-color: ${props => props.theme.background};
-  height: 100vw
-`;
-
-const StyledImage = styled.img`
-  border-radius 15px;
-  margin: 10px;
-  box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
-  cursor: pointer;
-`;
-
-const Heading = styled.h1`
-  color: ${props => props.theme.main};
-  margin: 20px;
-`;
+import {MainContainer, Heading, StyledImage} from './saved.styles'
 class Saved extends React.Component {
   handlePhotoClick = (photo) => {
     this.props.history.push(`/photo/${photo.id}`);

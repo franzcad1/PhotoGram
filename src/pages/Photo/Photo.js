@@ -1,67 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
-import {HeartFill, Star, StarFill} from '@styled-icons/bootstrap';
-
-const DisplayPicture = styled.img`
-  border-radius: 15px;
-`;
-
-const MainContainer = styled.div`
-  max-width: 1200px;
-  margin: auto;
-  background-color: ${props => props.theme.background};
-  height: 100vh
-`;
-
-const UserInfo = styled.div`
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 20px;
-    cursor: pointer;
-    color: ${props => props.theme.main};
-`;
-
-const StyledImage = styled.img`
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-`;
-
-const PhotoInfo = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin: 20px auto;
-    max-width: 300px;
-`;
-
-const HeartIcon = styled(HeartFill)`
-    color: red;
-    width: 40px;
-`;
-
-const StarIcon = styled(Star)`
-    color: #FFCF36;
-    width: 40px;
-    cursor: pointer;
-`;
-
-const StarFillIcon = styled(StarFill)`
-    color: #FFCF36;
-    width: 40px;
-    cursor: pointer;
-`;
-
-const LikesInfo = styled.div`
-    display: flex;
-    gap: 10px;
-    font-size: 24px;
-    color: ${props => props.theme.main};
-`;
-
-
+import {MainContainer, UserInfo, DisplayPicture, StyledImage, PhotoInfo, LikesInfo, HeartIcon, StarFillIcon, StarIcon} from './photo.styles'
 class Photo extends React.Component {
     state = {
         isLoading: false,

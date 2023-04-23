@@ -1,56 +1,8 @@
 import React from 'react';
 import axios from 'axios'
-import styled from 'styled-components';
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-
-const MainContainer = styled.div`
-  max-width: 1200px;
-  margin: auto;
-  text-align: center;
-`;
-
-const UserInfoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const UserInfo = styled.div`
-  margin: 20px 20px;
-  justify-content: center;
-  line-height:10px;
-  color: ${props => props.theme.secondary};
-`;
-
-const DisplayPicture = styled.img`
-  border-radius: 25px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-`;
-
-const UserURL = styled.a`
-  color: gray;
-  text-decoration: none;
-`;
-
-const StyledImage = styled.img`
-  border-radius 15px;
-  margin: 10px;
-  box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
-  cursor: pointer;
-`;
-
-const BioContainer = styled.div`
-  max-width: 500px;
-  margin: 0 auto;
-  color: ${props => props.theme.secondary};
-`;
-
-const Heading = styled.h1`
-  color: ${props => props.theme.main};
-`;
-
+import { MainContainer, DisplayPicture, Heading, BioContainer, UserURL, UserInfoContainer, UserInfo, StyledImage } from './user.styles';
 
 class User extends React.Component {
   state = {

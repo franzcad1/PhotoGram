@@ -2,24 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import styled from 'styled-components';
-
-
-const StyledImage = styled.img`
-  border-radius 15px;
-  margin: 10px;
-  box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
-`;
-
-const Heading = styled.h1`
-  color: ${props => props.theme.main};
-`;
-
-const MainContainer = styled.div`
-  max-width: 1200px;
-  margin: auto;
-  filter: ${props => props.isOpened ? 'blur(4px)' : 'blur(0px)'};
-`;
+import { MainContainer, Heading, StyledImage } from './search.styles';
 
  class Search extends React.Component {
   state = {
@@ -41,7 +24,6 @@ const MainContainer = styled.div`
       const { data } = await axios(
         `${baseURL}/search/photos/?query=${this.props.match.params.searchValue}&page=${this.state.page}&perpage=30&client_id=${accessKey}`
       );
-      console.log(data.results)
       this.setState({
         isLoading: false,
         pictures: [...this.state.pictures, ...data.results]

@@ -4,20 +4,7 @@ import {withRouter} from 'react-router-dom'
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ImagePreview from "../../components/ImagePreview/ImagePreview";
-import styled from 'styled-components'
-
-const MainContainer = styled.div`
-  max-width: 1200px;
-  margin: auto;
-  filter: ${props => props.isOpened ? 'blur(4px)' : 'blur(0px)'};
-`;
-
-const StyledImage = styled.img`
-  border-radius 15px;
-  margin: 10px;
-  box-shadow: 0px 3px 15px rgba(0,0,0,0.02);
-  cursor: pointer;
-`;
+import {MainContainer, StyledImage} from './home.styles';
 
 class Home extends React.Component {
   state = {
@@ -29,7 +16,6 @@ class Home extends React.Component {
     openPhoto: null,
     isOpened: false,
   };
-
 
   getAllPhotos = async () => {
     const baseURL = process.env.REACT_APP_BASE_URL;
@@ -61,7 +47,6 @@ class Home extends React.Component {
     }
   }
 
-
   handleClick = (photo) => {
     if (!this.state.isOpened){
       this.state.pictures.map((value) => {
@@ -80,7 +65,6 @@ class Home extends React.Component {
   handleClose = () => {
     this.setState({isOpened: false});
   }
-
 
   render() {
     return (
