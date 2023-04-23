@@ -61,6 +61,7 @@ class Home extends React.Component {
     }
   }
 
+
   handleClick = (photo) => {
     if (!this.state.isOpened){
       this.state.pictures.map((value) => {

@@ -89,8 +89,8 @@ class Navbar extends React.Component{
             <p>Saved</p>
           </IconContainer>
           </StyledLink>
-          <IconContainer>
-            <StyledMoon onClick={this.props.handleThemeChange}/>
+          <IconContainer onClick={this.props.handleThemeChange}>
+            <StyledMoon/>
             <p>Theme</p>
           </IconContainer>
         </Icons>

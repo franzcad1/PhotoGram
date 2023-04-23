@@ -73,19 +73,17 @@ export default class App extends React.Component {
   render() {
     return (
       <ThemeProvider theme={this.state.isDarkTheme ? darkTheme : lightTheme }>
-        <Router forceRefresh>
           <MainContainer>
             <GlobalStyle/>
             <Navbar handleThemeChange={this.handleThemeChange}/>
             <Switch>
-              <Route exact path="/" component={(props) => <Home {...props} savePhoto={this.savePhoto} savedPhotos={this.state.savedPhotos} unsavePhoto={this.unsavePhoto}/>}/>
               <Route exact path="/users/:username" component={User}/>
               <Route exact path="/search/:searchValue" component={Search}/>
               <Route exact path="/photo/:photoID" component={(props) => <Photo {...props} savePhoto={this.savePhoto} savedPhotos={this.state.savedPhotos} unsavePhoto={this.unsavePhoto}/>}/>
               <Route exact path="/saved" component={(props) => <Saved {...props} savedPhotos={this.state.savedPhotos}/>}/>
+              <Route exact path="/" component={(props) => <Home {...props} savePhoto={this.savePhoto} savedPhotos={this.state.savedPhotos} unsavePhoto={this.unsavePhoto}/>}/>
             </Switch>
           </MainContainer>
-        </Router>
       </ThemeProvider>
   );
   }
