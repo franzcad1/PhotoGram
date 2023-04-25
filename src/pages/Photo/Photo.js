@@ -33,9 +33,6 @@ class Photo extends React.Component {
       if(prevState.photo !== this.state.photo){
         this.checkIfSaved();
       }
-      if(prevState.isSaved !== this.state.isSaved){
-        console.log(this.state.isSaved)
-      }
     }
 
     handleUserClick = (username) => {

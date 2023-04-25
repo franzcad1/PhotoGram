@@ -52,7 +52,6 @@ export default class App extends React.Component {
       const photoList = [...this.state.savedPhotos];
       if (!this.state.savedPhotos.find(item => item.id === photo.id)){
         photoList.push(photo);
-        console.log('image saved')
       }
       this.setState({savedPhotos: photoList})
       localStorage.setItem('savedPhotos', JSON.stringify(photoList));
@@ -64,12 +63,6 @@ export default class App extends React.Component {
     localStorage.setItem('savedPhotos', JSON.stringify(photoList));
   }
   
-  
-  componentDidUpdate(prevProps, prevState){
-    if (prevState.savedPhotos !== this.state.savedPhotos){
-      console.log(this.state.savedPhotos);
-    }
-  }
   render() {
     return (
       <ThemeProvider theme={this.state.isDarkTheme ? darkTheme : lightTheme }>
