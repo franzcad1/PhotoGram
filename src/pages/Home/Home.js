@@ -1,10 +1,10 @@
 import axios from "axios";
 import React from "react";
-import {withRouter} from 'react-router-dom'
+import { withRouter } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ImagePreview from "../../components/ImagePreview/ImagePreview";
-import {MainContainer, StyledImage} from './home.styles';
+import { MainContainer, StyledImage } from "./home.styles";
 
 class Home extends React.Component {
   state = {
@@ -27,7 +27,7 @@ class Home extends React.Component {
       );
       this.setState({
         isLoading: false,
-        pictures: [...this.state.pictures, ...data]
+        pictures: [...this.state.pictures, ...data],
       });
     } catch (err) {
       this.setState({ isLoading: false, hasError: true });
@@ -35,65 +35,73 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    if(this.state.page === 1)
-    {
+    if (this.state.page === 1) {
       this.getAllPhotos();
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if ((this.state.page > 1) && prevState.page !== this.state.page) {
+    if (this.state.page > 1 && prevState.page !== this.state.page) {
       this.getAllPhotos();
     }
   }
 
   handleClick = (photo) => {
-    if (!this.state.isOpened){
+    if (!this.state.isOpened) {
       this.state.pictures.map((value) => {
-        if (value.id === photo.id){
-          this.setState({openPhoto: value, isOpened: true})
+        if (value.id === photo.id) {
+          this.setState({ openPhoto: value, isOpened: true });
         }
         return value;
-      })
+      });
     }
-  }
+  };
 
   increasePage = () => {
     this.setState({ page: this.state.page + 1 });
   };
 
   handleClose = () => {
-    this.setState({isOpened: false});
-  }
+    this.setState({ isOpened: false });
+  };
 
   render() {
     return (
       <div>
-        {this.state.isOpened && <ImagePreview openPhoto={this.state.openPhoto} isOpened={this.state.isOpened} handleClose={this.handleClose} savePhoto={this.props.savePhoto} savedPhotos={this.props.savedPhotos} unsavePhoto={this.props.unsavePhoto}/>}
+        {this.state.isOpened && (
+          <ImagePreview
+            openPhoto={this.state.openPhoto}
+            isOpened={this.state.isOpened}
+            handleClose={this.handleClose}
+            savePhoto={this.props.savePhoto}
+            savedPhotos={this.props.savedPhotos}
+            unsavePhoto={this.props.unsavePhoto}
+          />
+        )}
         <MainContainer isOpened={this.state.isOpened}>
-        <InfiniteScroll
-          dataLength={this.state.pictures.length}
-          next={this.increasePage}
-          hasMore={this.state.hasMore}
-        >
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+          <InfiniteScroll
+            dataLength={this.state.pictures.length}
+            next={this.increasePage}
+            hasMore={this.state.hasMore}
           >
-            <Masonry>
-              {this.state.pictures &&
-                this.state.pictures.map((value, index) => {
-                  return (
-                    <StyledImage
-                      onClick={() => this.handleClick(value)}
-                      key={value.id}
-                      src={value.urls.small}
-                      alt={value.alt_description}
-                    />
-                  );
-                })}
-            </Masonry>
-          </ResponsiveMasonry>
-        </InfiniteScroll>
+            <ResponsiveMasonry
+              columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+            >
+              <Masonry>
+                {this.state.pictures &&
+                  this.state.pictures.map((value, index) => {
+                    return (
+                      <StyledImage
+                        onClick={() => this.handleClick(value)}
+                        key={value.id}
+                        src={value.urls.small}
+                        alt={value.alt_description}
+                      />
+                    );
+                  })}
+              </Masonry>
+            </ResponsiveMasonry>
+          </InfiniteScroll>
         </MainContainer>
       </div>
     );

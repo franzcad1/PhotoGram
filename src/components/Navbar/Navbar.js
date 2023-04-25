@@ -1,45 +1,59 @@
-import React from 'react'
-import { withRouter} from "react-router-dom";
-import { Navigation, SearchBar, Icons, StyledLink, IconContainer, StyledStar, StyledMoon, StyledCamera } from './navbar.styles';
-class Navbar extends React.Component{
-  handleChange = (e) => {
-    this.setState({ searchValue: e.target.value });
+import React, {useState} from "react";
+import { withRouter } from "react-router-dom";
+import {
+  Navigation,
+  SearchBar,
+  Icons,
+  StyledLink,
+  IconContainer,
+  StyledStar,
+  StyledMoon,
+  StyledCamera,
+} from "./navbar.styles";
+
+const Navbar = (props) => {
+  const [searchValue, setSearchValue] = useState('');
+
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.history.push(`/search/${this.state.searchValue}`);
-    this.setState({ searchValue: '' });
+    props.history.push(`/search/${searchValue}`);
+    setSearchValue('');
   };
-  render(){
-    return(
-        <>
-        <Navigation>
-        <form onSubmit={this.handleSubmit}>
-        <SearchBar type="text" onChange={this.handleChange} placeholder={"Search..."}  />
+  return (
+    <>
+      <Navigation>
+        <form onSubmit={handleSubmit}>
+          <SearchBar
+            type="text"
+            onChange={handleChange}
+            placeholder={"Search..."}
+          />
         </form>
         <Icons>
-          <StyledLink to='/'>
+          <StyledLink to="/">
             <IconContainer>
-              <StyledCamera/>
+              <StyledCamera />
               <p>Photos</p>
             </IconContainer>
           </StyledLink>
-          <StyledLink to='/saved'>
-          <IconContainer>
-            <StyledStar/>
-            <p>Saved</p>
-          </IconContainer>
+          <StyledLink to="/saved">
+            <IconContainer>
+              <StyledStar />
+              <p>Saved</p>
+            </IconContainer>
           </StyledLink>
-          <IconContainer onClick={this.props.handleThemeChange}>
-            <StyledMoon/>
+          <IconContainer onClick={props.handleThemeChange}>
+            <StyledMoon />
             <p>Theme</p>
           </IconContainer>
         </Icons>
       </Navigation>
-      </>
-    )
-  }
+    </>
+  );
 }
 
 export default withRouter(Navbar);
