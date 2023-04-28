@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import {
   Navigation,
@@ -12,7 +12,7 @@ import {
 } from "./navbar.styles";
 
 const Navbar = (props) => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
   const handleChange = (e) => {
     setSearchValue(e.target.value);
@@ -21,7 +21,7 @@ const Navbar = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.history.push(`/search/${searchValue}`);
-    setSearchValue('');
+    setSearchValue("");
   };
   return (
     <>
@@ -54,6 +54,6 @@ const Navbar = (props) => {
       </Navigation>
     </>
   );
-}
+};
 
 export default withRouter(Navbar);
