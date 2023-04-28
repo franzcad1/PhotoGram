@@ -6,7 +6,6 @@ import {
 } from "./searchTypes";
 
 export const searchPhotos = (searchValue, page) => async (dispatch, getState) => {
-  const state = getState();
   const baseURL = process.env.REACT_APP_BASE_URL;
   const accessKey = process.env.REACT_APP_ACCESS_KEY;
   try {
@@ -24,7 +23,6 @@ export const searchPhotos = (searchValue, page) => async (dispatch, getState) =>
     dispatch({
       type: GET_SEARCHED_PHOTOS_ERROR,
     });
-    console.log(err);
   }
 };
 

@@ -8,7 +8,6 @@ const initialState = {
   isLoading: false,
   hasError: false,
   photo: null,
-  isSaved: false,
 };
 
 function photoReducer(state = initialState, action) {

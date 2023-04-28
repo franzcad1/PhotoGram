@@ -20,7 +20,6 @@ export const getPhoto = (photoID) => async (dispatch, getState) => {
       dispatch({
         type: GET_PHOTO_ERROR,
       });
-      console.log(err);
     }
   };
   
