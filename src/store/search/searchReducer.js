@@ -27,7 +27,7 @@ function searchReducer(state = initialState, action){
                 isLoading: false
             }
         default:
-            return state
+            return state;
     }
 }
 
