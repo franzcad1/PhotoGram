@@ -18,10 +18,13 @@ class User extends React.Component {
   state = {
     page: 1,
   };
-  
+
   componentDidUpdate(prevProps, prevState) {
     if (prevState.page !== this.state.page) {
-      this.props.getUserPhotos(this.props.match.params.username, this.state.page);
+      this.props.getUserPhotos(
+        this.props.match.params.username,
+        this.state.page
+      );
     }
   }
 
@@ -32,7 +35,10 @@ class User extends React.Component {
   componentDidMount() {
     this.props.getUser(this.props.match.params.username);
     if (this.state.page === 1) {
-      this.props.getUserPhotos(this.props.match.params.username, this.state.page);
+      this.props.getUserPhotos(
+        this.props.match.params.username,
+        this.state.page
+      );
     }
   }
 
@@ -44,7 +50,9 @@ class User extends React.Component {
       <MainContainer>
         {this.props.userState.user && (
           <>
-            <DisplayPicture src={this.props.userState.user.profile_image.large} />
+            <DisplayPicture
+              src={this.props.userState.user.profile_image.large}
+            />
             <Heading>{this.props.userState.user.name}</Heading>
             <BioContainer>
               <p>{this.props.userState.user.bio}</p>
@@ -106,7 +114,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  getUser, getUserPhotos
+  getUser,
+  getUserPhotos,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);

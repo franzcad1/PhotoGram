@@ -1,54 +1,35 @@
-import axios from "axios";
 import React from "react";
+import {connect} from 'react-redux'
 import { withRouter } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { getAllPhotos } from "../../store/home/homeActions";
 import ImagePreview from "../../components/ImagePreview/ImagePreview";
 import { MainContainer, StyledImage } from "./home.styles";
 
 class Home extends React.Component {
   state = {
-    hasError: false,
-    isLoading: false,
     page: 1,
-    hasMore: true,
-    pictures: [],
     openPhoto: null,
     isOpened: false,
   };
 
-  getAllPhotos = async () => {
-    const baseURL = process.env.REACT_APP_BASE_URL;
-    const accessKey = process.env.REACT_APP_ACCESS_KEY;
-    try {
-      this.setState({ isLoading: true });
-      const { data } = await axios(
-        `${baseURL}/photos?page=${this.state.page}&perpage=50&client_id=${accessKey}`
-      );
-      this.setState({
-        isLoading: false,
-        pictures: [...this.state.pictures, ...data],
-      });
-    } catch (err) {
-      this.setState({ isLoading: false, hasError: true });
-    }
-  };
 
   componentDidMount() {
     if (this.state.page === 1) {
-      this.getAllPhotos();
+      this.props.getAllPhotos(this.state.page);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.page > 1 && prevState.page !== this.state.page) {
-      this.getAllPhotos();
+      this.props.getAllPhotos(this.state.page);
     }
   }
 
   handleClick = (photo) => {
     if (!this.state.isOpened) {
-      this.state.pictures.map((value) => {
+      this.props.home.pictures.map((value) => {
         if (value.id === photo.id) {
           this.setState({ openPhoto: value, isOpened: true });
         }
@@ -80,16 +61,16 @@ class Home extends React.Component {
         )}
         <MainContainer isOpened={this.state.isOpened}>
           <InfiniteScroll
-            dataLength={this.state.pictures.length}
+            dataLength={this.props.home.pictures.length}
             next={this.increasePage}
-            hasMore={this.state.hasMore}
+            hasMore={this.props.home.hasMore}
           >
             <ResponsiveMasonry
               columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
             >
               <Masonry>
-                {this.state.pictures &&
-                  this.state.pictures.map((value, index) => {
+                {this.props.home.pictures &&
+                  this.props.home.pictures.map((value, index) => {
                     return (
                       <StyledImage
                         onClick={() => this.handleClick(value)}
@@ -108,4 +89,12 @@ class Home extends React.Component {
   }
 }
 
-export default withRouter(Home);
+const mapStateToProps = (state) => ({
+  home: state.home,
+});
+
+const mapDispatchToProps = {
+  getAllPhotos,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
